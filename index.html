@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Fix Windows 11 links not opening due to Windows Subsystem for Android (WSA) conflicts. Download the script or follow manual instructions.">
+    <title>WSA Link Fixer - Fix Broken Links in Windows 11</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #0078d4;
+            --primary-hover: #0060aa;
+            --surface: #ffffff;
+            --bg-color: #f8f9fc;
+            --text-main: #111827;
+            --text-secondary: #4b5563;
+            --border: #e5e7eb;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius: 12px;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: var(--text-main);
+            background-color: var(--bg-color);
+            background-image: radial-gradient(at 0% 0%, hsla(213, 89%, 94%, 1) 0, transparent 50%), radial-gradient(at 100% 0%, hsla(208, 100%, 95%, 1) 0, transparent 50%);
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        /* Hero Section */
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #111827 0%, #4b5563 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 20px auto 30px;
+            font-weight: 400;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 14px 28px;
+            border-radius: 50px; /* Modern pill shape */
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 120, 212, 0.3);
+            border: 1px solid transparent;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 120, 212, 0.4);
+        }
+        
+        .btn-secondary {
+            background-color: white;
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .btn-secondary:hover {
+            border-color: #d1d5db;
+            background-color: #f9fafb;
+            transform: translateY(-2px);
+        }
+
+        /* Cards */
+        section {
+            background: var(--surface);
+            padding: 40px;
+            border-radius: var(--radius);
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+
+        h2 {
+            margin-top: 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #1f2937;
+        }
+
+        h3 {
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        ul, ol {
+            padding-left: 25px;
+            color: var(--text-secondary);
+        }
+        
+        li { margin-bottom: 8px; }
+
+        /* Code Blocks */
+        code {
+            background-color: #f3f4f6;
+            color: #e11d48; /* Red-ish for contrast */
+            padding: 2px 6px;
+            border-radius: 6px;
+            font-family: 'SF Mono', Consolas, monospace;
+            font-size: 0.9em;
+        }
+
+        pre {
+            background-color: #1e293b; /* Dark Slate */
+            color: #f8fafc;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 0.85rem;
+            white-space: pre-wrap; /* Wrap long lines */
+            word-break: break-all;
+        }
+
+        /* Alerts */
+        .alert {
+            background-color: #fffbeb;
+            color: #92400e;
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid #fcd34d;
+            margin: 25px 0;
+            font-size: 0.95rem;
+        }
+
+        .manual-fix {
+            border-top: 5px solid #f59e0b;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 80px;
+            padding-top: 40px;
+            border-top: 1px solid #e5e7eb;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        footer a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px dotted var(--text-secondary);
+        }
+        
+        footer a:hover { border-bottom-style: solid; }
+
+        .credits-sub {
+            font-size: 0.85rem;
+            color: #6b7280;
+            margin-top: 10px;
+        }
+
+        /* Simple animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 2.2rem; }
+            section { padding: 25px; }
+            .btn { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>WSA Link Fixer</h1>
+        <p class="subtitle">Can't open links from WhatsApp, VS Code, or Discord? <br>Fix the Windows Subsystem for Android (WSA) conflict automatically.</p>
+        
+        <div class="btn-group">
+            <a href="https://github.com/dvdzhou/wsa-link-fixer/releases/latest/download/WSA_Link_Fixer.ps1" class="btn btn-primary">
+                <span>⬇</span> Download Script (.ps1)
+            </a>
+            <a href="https://github.com/dvdzhou/wsa-link-fixer" class="btn btn-secondary">
+                View on GitHub
+            </a>
+        </div>
+    </header>
+
+    <section>
+        <h2>🛑 The Problem</h2>
+        <p>If you have installed <strong>Windows Subsystem for Android (WSA)</strong>—especially custom versions like WSABuilds—you might notice that clicking web links in desktop apps does nothing.</p>
+        <p><strong>Symptoms:</strong></p>
+        <ul>
+            <li>Clicking links in <strong>WhatsApp Desktop</strong>, <strong>VS Code</strong>, or <strong>Slack</strong> fails silently.</li>
+            <li>A loading cursor appears for a split second, but no browser opens.</li>
+            <li>Windows incorrectly tries to handle <code>http/https</code> protocols via Android.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>⚡ Automatic Fix</h2>
+        <p>This open-source PowerShell script detects the registry conflict, safely backs up the key, and restores your default browser behavior.</p>
+        
+        <h3>How to use:</h3>
+        <ol>
+            <li><strong>Download</strong> the script using the blue button above.</li>
+            <li>Right-click on <code>WSA_Link_Fixer.ps1</code> and select <strong>Run with PowerShell</strong>.</li>
+            <li>Follow the on-screen prompts.</li>
+        </ol>
+
+        <div class="alert">
+            <strong>⚠️ Windows Security Note:</strong> If the script fails to run right-click the file > <strong>Properties</strong> > Check <strong>Unblock</strong> at the bottom > <strong>Apply</strong>.
+        </div>
+    </section>
+
+    <section class="manual-fix">
+        <h2>🛠 Manual Fix</h2>
+        <p>If you prefer not to use the script, you can fix this manually by editing the Windows Registry. <strong>Ensure WSA is completely turned off first.</strong></p>
+        
+        <h3>Step 1: Open Registry Editor</h3>
+        <p>Press <code>Win + R</code>, then type <code>regedit</code>, and press Enter.</p>
+
+        <h3>Step 2: Navigate to the key</h3>
+        <p>Copy and paste this path into the address bar at the top:</p>
+        <pre>Computer\HKEY_CURRENT_USER\Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\SystemAppData\MicrosoftCorporationII.WindowsSubsystemForAndroid_8wekyb3d8bbwe\AppUriHandlers</pre>
+
+        <h3>Step 3: Delete or Rename</h3>
+        <p>Find the <code>AppUriHandlers</code> folder (key) and either <strong>delete it</strong> or rename it to <code>AppUriHandlers_OLD</code>.</p>
+        
+        <h3>Step 4: Restart</h3>
+        <p>Restart your PC or the "Windows Explorer" process via Task Manager to apply changes.</p>
+    </section>
+
+    <footer>
+        <p>Open Source Project licensed under MIT. Created by <a href="https://github.com/dvdzhou">@dvdzhou</a>.</p>
+        
+        <div class="credits-sub">
+            <p>Based on a solution by <a href="https://github.com/TheShark27" target="_blank">@TheShark27</a> found in <a href="https://github.com/microsoft/WSA/issues/361" target="_blank">Microsoft/WSA Issue #361</a>.</p>
+        </div>
+    </footer>
+
+</div>
+
+</body>
+</html>
