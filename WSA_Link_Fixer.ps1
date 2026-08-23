@@ -9,6 +9,22 @@
     MIT License - Copyright (c) 2026 dvdzhou
 #>
 
+function Wait-Key {
+    param([string]$Message = "Press any key to continue...")
+    Write-Host "`n$Message"
+    try {
+        $null = [System.Console]::ReadKey($true)
+    } catch {
+        $null = Read-Host
+    }
+}
+
+function Wait-Exit {
+    param([string]$Message = "Press any key to exit...")
+    Wait-Key -Message $Message
+    exit
+}
+
 # Configuration
 $wsaKey = "HKCU:\Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\SystemAppData\MicrosoftCorporationII.WindowsSubsystemForAndroid_8wekyb3d8bbwe\AppUriHandlers"
 
@@ -20,8 +36,7 @@ Write-Host "This tool fixes the issue where links from Windows apps fail to open
 if (-not (Test-Path $wsaKey)) {
     Write-Host "`n[V] Good news! No conflicting Android settings found." -ForegroundColor Green
     Write-Host "Your links should be opening correctly in your default browser."
-    Write-Host "`nPress any key to exit..."
-    $null = [System.Console]::ReadKey(); exit
+    Wait-Exit
 }
 
 Write-Host "`n[!] ALERT: Android (WSA) settings are currently hijacking your web links." -ForegroundColor Yellow
@@ -68,11 +83,11 @@ if ($fixChoice -eq "y" -or $fixChoice -eq "Y") {
     } catch {
         Write-Host "[ERROR] Could not rename the key. Android might still be running." -ForegroundColor Red
         Write-Host "Please restart your PC and run this script again BEFORE opening any Android apps."
-        Write-Host "`nPress any key to exit..."; $null = [System.Console]::ReadKey(); exit
+        Wait-Exit
     }
 } else {
     Write-Host "Operation cancelled. No changes made." -ForegroundColor White
-    Write-Host "`nPress any key to exit..."; $null = [System.Console]::ReadKey(); exit
+    Wait-Exit
 }
 
 # --- STEP 3: SYSTEM REFRESH ---
@@ -89,5 +104,4 @@ if ($explChoice -eq "y" -or $explChoice -eq "Y") {
     Write-Host "`n[NOTE] You chose not to restart Explorer. You must restart your PC to see the fix." -ForegroundColor Yellow
 }
 
-Write-Host "`nPress any key to close this tool..."
-$null = [System.Console]::ReadKey()
+Wait-Key -Message "Press any key to close this tool..."
