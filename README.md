@@ -30,6 +30,7 @@ It is **non-destructive**: it creates a timestamped backup of the registry key i
 
 2. **Run the tool**:
    - Double-click **`run_script.bat`**.
+   - *(If Windows Defender SmartScreen appears, click **More info** ➔ **Run anyway**, or right-click the `.zip` ➔ **Properties** ➔ check **Unblock** before extracting).*
 
 3. **Follow the on-screen instructions**:
    - The script will ask to close WSA automatically.
