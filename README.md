@@ -24,13 +24,12 @@ It is **non-destructive**: it creates a timestamped backup of the registry key i
 
 ## 🚀 How to Use
 
-1. **Download** the script:
-   - [Click here to download `WSA_Link_Fixer.ps1`](https://github.com/dvdzhou/wsa-link-fixer/releases/download/latest/WSA_Link_Fixer.ps1)
-   - Or clone this repository.
+1. **Download** the latest release:
+   - [Click here to download `wsa-link-fixer.zip`](https://github.com/dvdzhou/wsa-link-fixer/releases/latest/download/wsa-link-fixer.zip)
+   - Extract the `.zip` archive.
 
-2. **Run the script**:
-   - Right-click on the file `WSA_Link_Fixer.ps1`.
-   - Select **Run with PowerShell**.
+2. **Run the tool**:
+   - Double-click **`run_script.bat`**.
 
 3. **Follow the on-screen instructions**:
    - The script will ask to close WSA automatically.
